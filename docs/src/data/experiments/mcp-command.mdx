@@ -17,6 +17,7 @@ With the experiment enabled, `terragrunt mcp` speaks the Model Context Protocol 
 | `run_order`     | What must finish before each unit may start, for the command you name |
 | `get_outputs`   | The applied outputs of one unit                                              |
 | `plan`          | The per-unit result of `run --all plan`                                      |
+| `catalog`       | The components `terragrunt catalog` returns                                  |
 | `apply`, `destroy` | The per-unit result of a real change, served only under `--dangerously-allow-apply` and gated on a person accepting it |
 
 `run_order` takes the command it should answer for. `plan` and `apply` order alike, and only `destroy` inverts, but an `exclude` block naming one action does not match another, so the three can cover different sets of units.
