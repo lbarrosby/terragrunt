@@ -3,6 +3,8 @@ name: mcp-command
 since: "v1.2.0"
 ---
 
+import Since from '@components/Since.astro';
+
 Adds the `terragrunt mcp` command, which serves Terragrunt operations to AI agents over the [Model Context Protocol](https://modelcontextprotocol.io).
 
 ### `mcp-command` - What it does
@@ -18,6 +20,12 @@ With the experiment enabled, `terragrunt mcp` speaks the Model Context Protocol 
 | `get_outputs`   | The applied outputs of one unit                                              |
 | `plan`          | The per-unit result of `run --all plan`                                      |
 | `apply`, `destroy` | The per-unit result of a real change, served only under `--dangerously-allow-apply` and gated on a person accepting it |
+
+<Since version="v1.2.2">
+
+A `fmt` tool rewrites `.hcl` files into canonical format, as `hcl fmt` does, or with `check` reports the files that need it without changing any.
+
+</Since>
 
 `run_order` takes the command it should answer for. `plan` and `apply` order alike, and only `destroy` inverts, but an `exclude` block naming one action does not match another, so the three can cover different sets of units.
 
