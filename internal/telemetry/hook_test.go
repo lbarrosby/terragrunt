@@ -75,7 +75,7 @@ func TestOtelLogHookSeverities(t *testing.T) {
 			l.SetOptions(
 				log.WithLevel(log.TraceLevel),
 				log.WithOutput(io.Discard),
-				log.WithHooks(telemetry.NewOtelLogHook("terragrunt", provider)),
+				log.WithHooks(telemetry.NewOtelLogHook("terragrunt", "v0.0.0-test", provider)),
 			)
 
 			l.Logf(tt.level, "message at %s", tt.level)

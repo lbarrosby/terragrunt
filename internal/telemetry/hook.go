@@ -22,7 +22,8 @@ var stdLogrusLevels = map[log.Level]logrus.Level{
 }
 
 // NewOtelLogHook returns a logrus hook that exports Terragrunt log entries
-// through the given OpenTelemetry logger provider.
+// through the given OpenTelemetry logger provider, under an instrumentation
+// scope with the given name and version.
 //
 // Terragrunt registers its levels with logrus shifted past Panic and Fatal
 // (see [log.Level.ToLogrusLevel]), so entries reach hooks with distorted
@@ -32,9 +33,13 @@ var stdLogrusLevels = map[log.Level]logrus.Level{
 // never fire for debug or trace records. This hook registers for the shifted
 // levels and restores the standard logrus level on each entry before handing
 // it to the bridge.
-func NewOtelLogHook(name string, provider otellog.LoggerProvider) logrus.Hook {
+func NewOtelLogHook(name, version string, provider otellog.LoggerProvider) logrus.Hook {
 	return &otelLogHook{
-		inner: otellogrus.NewHook(name, otellogrus.WithLoggerProvider(provider)),
+		inner: otellogrus.NewHook(
+			name,
+			otellogrus.WithVersion(version),
+			otellogrus.WithLoggerProvider(provider),
+		),
 	}
 }
 

@@ -59,7 +59,7 @@ func NewTelemeter(
 		// (clones copy hooks by reference at clone time), so every downstream logger
 		// inherits the hook and emits records correlated to the active span.
 		if logger != nil {
-			l.SetOptions(log.WithHooks(NewOtelLogHook(appName, logger.provider)))
+			l.SetOptions(log.WithHooks(NewOtelLogHook(appName, appVersion, logger.provider)))
 		}
 	}
 
