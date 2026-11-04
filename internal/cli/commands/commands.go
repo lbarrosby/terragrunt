@@ -201,11 +201,11 @@ func WrapWithTelemetry(
 		ctx = telemetry.ContextWithTelemeter(ctx, telemeter)
 
 		cmdName := fmt.Sprintf(
-			"%s %s", cliCtx.Command.Name, opts.TerraformCommand,
+			"%s %s", cliCtx.Command.Name, opts.TofuCommand,
 		)
 
 		return telemeter.Collect(ctx, l, cmdName, map[string]any{
-			"terraformCommand": opts.TerraformCommand,
+			"terraformCommand": opts.TofuCommand,
 			"args":             opts.TerraformCliArgs,
 			"dir":              opts.WorkingDir,
 		}, func(childCtx context.Context, l log.Logger) error {
@@ -566,7 +566,7 @@ func initialSetup(
 		args = append(args, tf.FlagNameNoColor)
 	}
 
-	opts.TerraformCommand = cmdName
+	opts.TofuCommand = cmdName
 	opts.TerraformCliArgs = iacargs.New(args...)
 
 	// --- Working Dir
@@ -697,7 +697,7 @@ func initialSetup(
 	}
 
 	opts.OriginalTerragruntConfigPath = opts.TerragruntConfigPath
-	opts.OriginalTerraformCommand = opts.TerraformCliArgs.CommandName(opts.TerraformCommand)
+	opts.OriginalTofuCommand = opts.TerraformCliArgs.CommandName(opts.TofuCommand)
 	opts.OriginalIAMRoleOptions = opts.IAMRoleOptions
 
 	if !exec.PrepareConsole(l) {
